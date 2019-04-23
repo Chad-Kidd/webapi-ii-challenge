@@ -4,6 +4,7 @@ const PostData = require('./db.js')
 
 const router = express.Router();
 
+// GET - render all posts
 router.get('/', async (req, res) => {
     try {
         const posts = await PostData.find();
@@ -16,6 +17,7 @@ router.get('/', async (req, res) => {
     }
 })
 
+// GET - render post by id
 router.get('/:id', async (req, res) => {
     try {
      const postbyid = await PostData.findById(req.params.id);
@@ -34,6 +36,25 @@ router.get('/:id', async (req, res) => {
         }); }
 })
 
+// DELETE - remove post
+router.delete('/:id', async (req, res) => {
+    try {
+        const deletepost = await PostData.remove(req.params.id);
+        if (deletepost > 0) {
+            res.status(200).json({message: `POST DELETED`})
+        }
+        else {
+            res.status(404).json({ message: "The post with the specified ID does not exist." });
+          }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "The post could not be removed" });
+      }
+})
 
+   
+      
+  
 
+ 
 module.exports = router;
