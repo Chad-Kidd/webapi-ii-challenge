@@ -2,12 +2,12 @@ const express = require('express')
 
 const server = express();
 
-const postRouter = require('./postRouter.js')
+const postRouter = require('./data/post-router')
 
 server.use(express.json());
 
 server.get('/', (req, res) => {
-    res.send('AEGON TARGARYEN!!!!!')
+    res.send('<h1>WINTER IS HERE!!!!!</h1>')
 })
 
 server.use('/api/posts', postRouter)
